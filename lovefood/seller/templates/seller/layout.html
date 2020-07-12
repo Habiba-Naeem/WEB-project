@@ -1,0 +1,68 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>{% block title %}Seller's Dashboard{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="{% static 'seller/styles.css' %}" rel="stylesheet">
+    <script src="{% static 'seller/index.js' %}"></script>
+    <!--<script>
+        //alert("Hello");
+        getlist();
+        getitems();
+
+        function getlist() {
+            fetch(`/getlist`)
+                .then(response => response.json())
+                .then(data => {
+                    data.itemlist.forEach(addlistmemeber);
+                })
+
+        }
+
+        function addlistmemeber(member) {
+            list = document.getElementById('dish-list');
+            item = document.createElement('p');
+            item.innerHTML = member;
+            item.className = "list-item";
+            list.append(item);
+
+        }
+
+        function getitems() {
+            //const start = 1;
+            // const end = 10;
+            //counter = end + 1;
+            seller_name = document.getElementById('seller_name').innerHTML;
+            // Get new posts and add posts
+            fetch(`/getitems`)
+                .then(response => response.json())
+                .then(data => {
+                    //data.items.forEach(addItem);
+                })
+        };
+
+        function addItem(content) {
+            item = document.createElement('div');
+            item.className = "item";
+
+
+        }
+
+
+
+    </script>-->
+</head>
+
+<body>
+    <div>
+        <h1>Love Food</h1>
+    </div>
+    {% block content %}
+    {% endblock%}
+</body>
+
+</html>

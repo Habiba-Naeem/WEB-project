@@ -1,0 +1,7 @@
+{% extends "seller/layout.html"%}
+{% load static %}
+{% block content %}
+<h1>Welcome to your account <span id="seller-name"> {{ seller_name }}! </span></h1>
+<h2>Here are the items you've posted:</h2>
+<div id="dish-list"></div>
+{% endblock %}
