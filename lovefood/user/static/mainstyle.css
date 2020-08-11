@@ -1,0 +1,31 @@
+.card-img-top{
+    height:50% !important;
+}
+.ct-center{
+    margin:10% !important;
+    margin-right: 32.5% !important;
+    margin-left:32.5% !important;
+    text-align: center !important;
+}
+.cb{
+    height:520px !important;
+    
+}
+.ct-search{
+    margin:5% !important;
+    margin-left:6% !important;
+    margin-right:6% !important;
+}
+.b1{
+    margin:1.2% !important;
+}
+body{
+    background-color: #FEB921;
+    color: #722910;
+}
+.btn-warning{
+    background-color:rgb(63, 186, 207) !important;
+}
+.cit{
+    height:320px !important;
+}
