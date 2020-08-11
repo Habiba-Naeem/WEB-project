@@ -36,6 +36,8 @@ INSTALLED_APPS = [
     'cart.apps.CartConfig',
     'recipes.apps.RecipesConfig',
     'reviews.apps.ReviewsConfig',
+    'seller.apps.SellerConfig',
+    'deliverer.apps.DelivererConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,7 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
-
+AUTH_USER_MODEL = 'user.User'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

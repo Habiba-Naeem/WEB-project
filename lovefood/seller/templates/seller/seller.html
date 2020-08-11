@@ -1,0 +1,15 @@
+{% extends "seller/layout.html"%}
+{% load static %}
+{% block content %}
+<form method="get" action="{% url 'logout_seller' %}">
+    <button id="logout">Logout</button>
+</form>
+<h1>Welcome to your account <span id="seller-name">{{ seller_name }}</span>!</h1>
+<form method="get" action="{% url 'additem' seller_name %}">
+    <!-- {% csrf_token %} -->
+    <button id="add-dish">Add item</button>
+</form>
+<h2>Here are the items you've posted:</h2>
+<div id="dish-list"></div>
+<div id="dish">items</div>
+{% endblock %}

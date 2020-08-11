@@ -1,0 +1,53 @@
+{% extends "seller/layout.html"%}
+{% load static %}
+{% block content %}
+{% if message %}
+<div>
+    {{ message }}
+</div>
+{% endif %}
+<section class="reg-log-sec">
+    <div class="register-login-div">
+        <h2>Register</h2>
+        <form method="post" action="{% url 'register_seller' %}">
+
+            {% csrf_token %}
+
+            <label>Restaurant name</label>
+            <input type="text" name="restaurant_name" required>
+            <label>Email</label>
+            <input type="email" name="email" required>
+            <label>Restaurant address</label>
+            <input type="text" name="address" required>
+            <label>Phone number</label>
+            <input type="text" name="contact" required>
+            <label>Password</label>
+            <input type="password" name="password" required>
+            <label>Confirm Password</label>
+            <input type="password" name="confirm_password" required>
+            <p> homecook </p>
+            <input type="radio" id="home-yes" name="homeornot" value="yes">
+            <label for="home-yes">Yes</label><br>
+            <input type="radio" id="home-no" name="homeornot" value="no">
+            <label for="home-no">No</label><br>
+            <button type="submit" id="register-button">Register</button>
+        </form>
+    </div>
+</section>
+<section class="reg-loc-sec">
+    <div class="register-login-div">
+        <h2>Login</h2>
+        <form method="post" action="{% url 'login_seller' %}">
+
+            {% csrf_token %}
+
+            <label>Username</label>
+            <input type="text" name="email">
+            <label>Password</label>
+            <input type="password" name="password">
+            <button type="submit" id="login-button">Log in</button>
+        </form>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "user/layout.html"%}
+{% load static %}
+{% block content %}
+
+{% csrf_token %}
+        <section class="reg-log-sec">
+                <div class="register-login-div">
+                    <h2>Register</h2>
+                    <form method="post" action="{% url 'register' %}">
+                        
+                        {% csrf_token %}
+                    
+                        <label>First name</label>
+                        <input type="text" name="first-name" required>
+                        <label>Last name</label>
+                        <input type="text" name="last-name" required>
+                        <label>Email</label>
+                        <input type="email" name="email" required>
+                        <label>Password</label>
+                        <input type="password" name="password" required>
+                        <label>Confirm Password</label>
+                        <input type="password" name="confirm_password" required>
+                        <button type="submit" id="register-button">Register</button>
+                    </form>
+                </div>
+        </section>
+        <section class="reg-loc-sec">
+                <div class="register-login-div">
+                    <h2>Login</h2>
+                    <form method="post" action="{% url 'login_user' %}">
+                        
+                        {% csrf_token %}
+        
+                        <label>Username</label>
+                        <input type="text" name="username">
+                        <label>Password</label>
+                        <input type="password" name="password">
+                        <button type="submit"  id="login-button">Log in</button>
+                    </form>
+                </div>
+        </section>        
+        
+{% endblock %}

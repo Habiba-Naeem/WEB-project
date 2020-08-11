@@ -1,0 +1,21 @@
+{% extends "seller/layout.html"%}
+{% load static %}
+{% block content %}
+<h1>Dish no {{ dish_id }}: {{ name }} </h1>
+<p>Summary: {{ summary }}</p>
+<p>Nationality: {{ nationality }}</p>
+<p>No of serving: {{ no_of_serving }}</p>
+<p>Picture: {{ picture }}</p>
+<p>Category: {{ category }}</p>
+<p>Glutten Free: {{ glutten_free }}</p>
+<p>Customizable: {{ customizable }}</p>
+
+<form method="get" action="{% url 'updateitem' seller_name=seller_name dish_id=dish_id %}">
+    {% csrf_token %}
+    <button id="update-item">Update</button>
+</form>
+<form method="get" action="{% url 'deleteitem' seller_name=seller_name dish_id=dish_id %}">
+    {% csrf_token %}
+    <button id="delete-item">Delete</button>
+</form>
+{% endblock %}
