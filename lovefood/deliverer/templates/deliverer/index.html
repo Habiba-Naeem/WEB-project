@@ -1,0 +1,6 @@
+{% extends "deliverer/layout.html"%}
+{% load static %}
+{% block content %}
+<h1>{{ name }}</h1>
+<a href="{% url 'logout_deliverer'%}">Logout</a>
+{% endblock %}
