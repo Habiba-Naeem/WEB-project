@@ -1,0 +1,72 @@
+{% extends "user/layout.html"%}
+{% load static %}
+{% block content %}
+{% csrf_token %}
+<section class="cart">
+    {% csrf_token %}
+    <article class="cart">
+        <div>
+            <h1>Your cart</h1>
+        </div>
+        <div class="contents">
+
+            <table id="table">
+                <thead>
+                    <tr class="begin-row">
+                        <th class="table-heading">Resturant</th>
+                        <th class="table-heading">Dish</th>
+                        <th class="table-heading">Quantity</th>
+                        <th class="table-heading">Total</th>
+                        <th class="table-heading" id="lasthead"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cart_item in cart_items %}
+                    <tr class="row" id="{{ cart_item.id }}">
+                        <td class="table-data table-name" id="product-name">{{ cart_item.product.dish.restaurant.name }}
+                        </td>
+                        <td>{{cart_item.product.dish.name}}
+                            <div class="inside-row">
+                                <label id="product-price" data-price="{{ cart_item.product.dish.price }}">${{ cart_item.product.dish.price }}</label>
+                                <br>
+                            </div>
+                        </td>
+                        <td class="table-data" id="cart-item-quantity">
+                            <div class="properties-div">
+                                <input type="number" id="quantity" name="quantity" min="1" max="50" value="1">
+                            </div>
+                        </td>
+                        <td class="table-data" id="cart-item-total" data-=""></td>
+                        <td class="table-data"><button class="cancel">Cancel</button></td>
+                    </tr>
+                    {% endfor%}
+                </tbody>
+            </table>
+           
+        </div>
+        </div>
+    </article>
+</section>
+<section class="checkout">
+    <article class="checkout">
+        <div>
+            <h1>Checkout</h1>
+        </div>
+        {% csrf_token %}
+        <form method="POST" name="myform" action="{% url 'order' %}" id="payment-form">
+            {% csrf_token %}
+            <div>
+                <label>Address</label>
+                <input type="text" name="address" id="order_address">
+                <label>Phone number</label>
+                <input type="text" name="phone_number" id="order_phone_number">
+                <label name="total" id="total">Total</label>
+                <input type="hidden" name="total" id="totalhidden">
+            </div>
+            <input type="submit" id="submit_order" value="Order all">
+
+        </form>
+    </article>
+</section>
+
+{% endblock %}

@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<!-- changes r -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lovefood</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+    <script src="{% static 'seller/index.js'%}"></script>
+    <!--<link rel="stylesheet" href="{% static 'seller/style.css' %}">-->
+    
+</head>
+<!-- changes r -->
+
+<body style="background-color: #FEB921;color: #722910;">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            {% if request.user.is_authenticated %}
+                <a class="navbar-brand" href="{% url 'seller_index' %}">{{ request.user.first_name }}</a>
+                <a href="{% url 'logout_seller'%}">Logout</a>
+            {% else %}
+                <a class="navbar-brand" href="{% url 'user_index' %}">Love Food</a>
+                <a href="{% url 'login_seller' %}">Login</a>
+                <a href="{% url 'register_seller' %}">Register</a>
+            {% endif %}
+    </nav>
+    <!-- changes r -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+    <!-- changes r -->
+    {% block content %}
+    {% endblock %}
+</body>
+
+</html>
+

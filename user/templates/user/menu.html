@@ -1,0 +1,51 @@
+{% extends "user/layout.html"%}
+{% load static %}
+{% block content %}
+    <br><br>
+    <h1 class="dark-brown font-weight-bolder text-center">{{ restaurant.name }}</h1>
+    <br>
+   <img src="desserts1.jpg" class="FirstImage container-sm"  alt="Responsive image">
+   <br><br>
+   <p class="card-text dark-brown"><b>Rs.20</b> Delivery Fee.<p class="text-muted float-right"><span class="fa fa-star"></span><b> 4.5</b>/5 (2k+)</p></p>
+   <br>
+   <br>
+   <br>
+   {% for dish in dishes %}
+   <div class="shadow-lg p-3 mb-3 bg-white rounded dishdiv" data-dishid="{{ dish.id }}" data-restaurantid="{{ restaurant.id }}">
+       <p>
+           <b> {{ dish.name }} </b> 
+           <br> 
+           {{ dish.price }} 
+           <button class="rounded overall cartbtn border-0 float-right dark-brown add-to-cart">Add to Cart</button> 
+        </p>
+   </div>
+   {% endfor %}
+   
+   <div class="container-md">
+    <h2 class="font-weight-bold dark-brown">Please, rate our restaurant: <br><br><div >
+        <span onclick="checked4()" id="icon4"class="fa fa-star"></span>
+        <span onclick="checked3()" id="icon3"class="fa fa-star"></span>
+        <span onclick="checked2()" id="icon2"class="fa fa-star"></span>
+        <span onclick="checked1()" id="icon1" class="fa fa-star"></span>
+        <span onclick="checked()" id="icon"class=" icon fa fa-star"></span>
+    </div></h2>
+    <br>
+    <br>
+    <br>
+    <h2 class="font-weight-bold dark-brown">Please, give us your reviews: <br><br><div ></div>
+    <input type="text" class="container-md rounded bg-light" style="height: 170px; ">
+    <br> 
+    <button class="float-right bg-light rounded" style="height:40px; "> <small> Submit</small></button>
+    <br>
+    <br>
+    <br>
+
+    <h2 class="font-weight-bold dark-brown">{{ restaurant.name }} Information:</h2>
+        <h4 class="text-light">{{ restaurant.category }}</h4>
+        <h4 class="text-light">{{ restaurant.address }}</h4>
+    </div> <br><br>
+    <iframe class="rounded container-fluid" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14470.957748216468!2d67.0495118!3d24.9409449!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x2029dfc6f65c44b!2sBroadway%20Pizza%205%20Star!5e0!3m2!1sen!2s!4v1597068181247!5m2!1sen!2s"  frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+    <br>
+    <script src="app.js"></script>
+    
+{% endblock %}

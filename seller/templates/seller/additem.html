@@ -1,0 +1,42 @@
+{% extends "seller/layout.html"%}
+{% load static %}
+{% block content %}
+{% csrf_token %}
+<h1>Add your dishes here</h1>
+{% if message %}
+<div>
+    {{ message }}
+</div>
+{% endif %}
+<form method="post" action="{% url 'additem'%}">
+
+    {% csrf_token %}
+
+    <label>Name</label>
+    <input type="text" name="dish_name" id="dish_name" required>
+    <label>Summary</label>
+    <input type="text" name="dish_summary" id="dish_summary" required>
+    <label>Nationality</label>
+    <input type="text" name="dish_nationality" id="dish_nationality" required>
+    <label>No of serving</label>
+    <input type="number" min="1" name="dish_no_of_serving" id="dish_no_of_serving" required>
+    <label>Picture</label>
+    <input type="text" name="dish_picture" id="dish_picture" required>
+    <label>Category</label>
+    <input type="text" name="dish_category" id="dish_category" required>
+    <p> Glutten-free </p>
+    <label> Yes </label>
+    <input type="radio" id="dish_glutten_free_yes" name="dish_glutten_free" value="yes">
+    <label> No </label>
+    <input type="radio" id="dish_glutten_free_no" name="dish_glutten_free" value="no">
+    <p> Customizable </p>
+    <label> Yes </label>
+    <input type="radio" id="dish_customizable_yes" name="dish_customizable" value="yes">
+    <label> No </label>
+    <input type="radio" id="dish_customizable_no" name="dish_customizable" value="no">
+    <label>Price</label>
+    <input type="text" name="dish_price" required> 
+    <button type="submit" id="dish-add-button">Add</button>
+</form>
+
+{% endblock %}
