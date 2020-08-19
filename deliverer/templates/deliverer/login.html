@@ -36,6 +36,14 @@
                         <p class="text-center"><a href="#" class="btn" style="color:#722910;">Forgot password?</a>
                         </p>
                     </form>
+                    
+                    {% if messages %}
+                            {% for message in messages %}
+                            <div class="alert alert-danger" role="alert">
+                                {{message}}
+                            </div>
+                            {% endfor%}
+                        {% endif %}
                 </article>
             </div> <!-- card.// -->
         </div>

@@ -11,10 +11,16 @@ from seller.models import *
 def index(request): 
     if request.user.is_authenticated:
         context ={
-            "name":request.user.first_name
+            "name":request.user.first_name,
+            "restaurants": Restaurant.objects.all(),
+            "category": Restaurant_category
         }
         return render(request, 'user/index.html', context)
-    return render(request, 'user/index.html')
+    context = {
+        "restaurants": Restaurant.objects.all()
+    }
+    return render(request, 'user/index.html', context)
+
 def login_user(request):
     if request.method == "POST":
         email = request.POST.get("email")
@@ -30,15 +36,19 @@ def login_user(request):
                     return HttpResponseRedirect(reverse('user_index'))
                 else:
                     messages.warning(request, "Please provide correct email and password.")
-                    return JsonResponse({"success": False})
+                    return render(request, 'user/login.html')
         except User.DoesNotExist:
-            return JsonResponse({"Register your self as a seller first":True})
+            messages.warning(request, "Please register yourself")
+            return render(request, 'user/login.html')
     else:
-        return render(request, 'user/login.html')
+        context = {
+        "restaurants": Restaurant.objects.all()
+        }
+        return render(request, 'user/login.html', context)
 
 def logout_user(request):
     logout(request)
-    return JsonResponse({"logout": True})
+    return HttpResponseRedirect(reverse('login_user'))
 
 def register(request):
 
@@ -55,7 +65,7 @@ def register(request):
             try:
                 if User.objects.get(email=email):
                     messages.error(request, "Username or email already exists.")
-                    return JsonResponse({"Username or email already exists": True})
+                    return  render(request, 'user/signup.html')
             except User.DoesNotExist:
                 user = User.objects.create_user(user_type=1, first_name=first_name, last_name=last_name, email=email, password=password)
                 messages.success(request, "Account created")
@@ -66,9 +76,12 @@ def register(request):
                 return HttpResponseRedirect(reverse('login_user'))
         else:
             messages.error(request, "Passwords do not match")
-            return  JsonResponse({"Passwords do not match": True})
+            return  render(request, 'user/signup.html')
     else:
-        return render(request, 'user/signup.html')
+        context = {
+        "restaurants": Restaurant.objects.all()
+        }
+        return render(request, 'user/signup.html', context)
 
 def browseRestaurants(request):
     context = {
@@ -78,10 +91,11 @@ def browseRestaurants(request):
 
 def restaurant(request, nameof):
     print(nameof)
-    restaurant = Restaurant.objects.get(name=nameof)
-    dishes = Dish.objects.filter(restaurant=restaurant)
+    restaurant_name = Restaurant.objects.get(name=nameof)
+    dishes = Dish.objects.filter(restaurant=restaurant_name)
     context = {
-        "restaurant": restaurant,
-        "dishes": dishes
+        "restaurant_name": restaurant_name,
+        "dishes": dishes,
+        "restaurants": Restaurant.objects.all()
     }
     return render(request, 'user/menu.html', context)

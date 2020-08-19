@@ -1,7 +1,6 @@
 {% extends "seller/layout.html"%}
 {% load static %}
 {% block content %}
-<section class="reg-log-sec">
     <div class="row justify-content-center p-5 register-login-div">
         <div class="col-md-6">
             <div class="card" style="padding:3%;font-weight: bold;">
@@ -19,6 +18,14 @@
                             <div class="col form-group">
                                 <label>Restaurant address</label>
                                 <input type="text" class="form-control" name="address" required placeholder=" ">
+                            </div>
+                            <div class="col form-group">
+                                <label>Restaurant category</label>
+                                <select name="category_restaurant" class="custom-select">
+                                    {% for mykey,myvalue in category%}
+                                    <option value="{{ mykey }}">{{myvalue}}</option>
+                                    {% endfor %}
+                                  </select>
                             </div> <!-- form-group end.// -->
                         </div> <!-- form-row end.// -->
                         <div class="form-group">
@@ -55,8 +62,15 @@
                         <small class="text-muted">By clicking the 'Register' button, you confirm that you accept our <b>
                                 Terms of use</b> and <b>Privacy Policy.</b></small>
                     </form>
+                    {% if messages %}
+                            {% for message in messages %}
+                            <div class="alert alert-danger" role="alert">
+                                {{message}}
+                            </div>
+                            {% endfor%}
+                        {% endif %}
                 </article> <!-- card-body end .// -->
-                <div class="border-top card-body text-center">Have an account? <a href="login.html">Log In</a></div>
+                <div class="border-top card-body text-center">Have an account? <a href="{% url 'login_seller'%}">Log In</a></div>
             </div> <!-- card.// -->
         </div> <!-- col.//-->
 
@@ -65,41 +79,7 @@
 
     </div>
     <!--container end.//-->
-</section>
 
 
-
-<!--<section class="reg-log-sec">
-    <div class="register-login-div">
-        <h2>Register</h2>
-        <form method="post" action="{% url 'register_seller' %}">
-            
-            {% csrf_token %}
-        
-            <label>Restaurant name</label>
-            <input type="text" name="restaurant_name" required>
-            <label>Restaurant address</label>
-            <input type="text" name="address" required>
-            <br>
-            <hr>
-            <label>First name </label>
-            <input type="text" class="form-control" name="first-name" required placeholder="">
-            <label>Last name </label>
-            <input type="text" class="form-control" name="last-name" required placeholder="">                    
-            <label>Email</label>
-            <input type="email" name="email" required>
-            <label>Phone number</label>
-            <input type="text" name="phone_number" required>
-            <label>Password</label>
-            <input type="password" name="password" required>
-            <label>Confirm Password</label>
-            <input type="password" name="confirm_password" required>
-            <label>Main category of food you will sell</label>
-            <input type="text" name="category_restaurant" required>
-            <button type="submit" id="register-button">Register</button>
-        </form>
-    </div>
-</section>
--->
 
 {% endblock %}

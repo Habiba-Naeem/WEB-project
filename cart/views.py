@@ -2,22 +2,27 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
-#from django.contrib.auth.models import User
 from django.contrib import messages
 from .models import *
+from seller.models import *
 import json
+import random
 # Create your views here.
 
 def index(request):
     if not request.user.is_authenticated:
-        messages.warning(request, "Please login to view cart.")
-        return HttpResponseRedirect(reverse("user_index"))
+        context = {
+            "restaurants": Restaurant.objects.all()
+        }
+        messages.warning(request, "Please login to view cart.", context)
+        return render(request, "cart/index.html")
 
     cart = Cart.objects.get(user=request.user)
 
     context = {
         "user": request.user,
-        "cart_items": Cart_Item.objects.filter(cart=cart)
+        "cart_items": Cart_Item.objects.filter(cart=cart),
+        "restaurants": Restaurant.objects.all()
     }
     return render(request, "cart/index.html", context)
 
@@ -36,7 +41,7 @@ def cart_item(request, item):
     restaurant = Restaurant.objects.get(id=int(stuff["restaurantid"]))
     dish = Dish.objects.get(id=int(stuff["dishid"]), restaurant=restaurant)
     product = Product.objects.create(dish=dish)
-    cart_item = Cart_Item.objects.create(product = product, cart = cart)
+    cart_item = Cart_Item.objects.create(product = product, cart = cart, total = product.dish.price)
          
     return JsonResponse({"success": True})
          
@@ -51,6 +56,9 @@ def quantity(request, id, q):
         cart = Cart.objects.get(user = request.user)
         cart_item = Cart_Item.objects.get(id = id)
         cart_item.quantity = q
+        price = cart_item.product.dish.price
+        print(price)
+        cart_item.total = q * price
         cart_item.save()
         return JsonResponse({"success":True})
     except:
@@ -66,14 +74,13 @@ def order(request):
         total = request.POST.get("total")
         print(total)
 
-        user = User.objects.get(email="h@g.com")
-        print(user)
-        deliverer = Deliverer.objects.get(user=user)
+        n =  random.randint(Deliverer.objects.all().first().pk ,  Deliverer.objects.all().last().pk)
+        deliverer = Deliverer.objects.get(user__id=n)
         print(deliverer)
 
         for item in cart_item:
-        
-            order_items = Order_Items.objects.create(product = item.product, quantity=item.quantity, cart = item.cart)
+            print(item.total)
+            order_items = Order_Items.objects.create(product = item.product, quantity=item.quantity,total=item.total, cart = item.cart)
             order = Order.objects.create(user=request.user ,order_items = order_items, address=address, phone_number=phone_number, total = total, deliverer=deliverer) 
             cart_item = Cart_Item.objects.get(id = item.id)
             cart_item.delete()

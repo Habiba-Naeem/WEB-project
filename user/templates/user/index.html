@@ -120,19 +120,9 @@
             </h1>
             <p class="lead">
             <div class="btn-group" role="group" aria-label="buttons">
-                <a href="#" class="btn btn-light b1 btn-lg active" role="button" aria-pressed="true">Pizza</a>
-                <a href="#" class="btn btn-light b1 btn-lg active" role="button" aria-pressed="true">Thai</a>
-                <a href="#" class="btn btn-light b1 btn-lg active" role="button" aria-pressed="true">Italian</a>
-                <a href="#" class="btn btn-light b1 btn-lg active" role="button" aria-pressed="true">Chinese</a>
-                <a href="#" class="btn btn-light  b1 btn-lg active" role="button" aria-pressed="true">Japanse</a>
-                <a href="#" class="btn btn-light  b1 btn-lg active" role="button" aria-pressed="true">Desserts</a>
-                <a href="#" class="btn btn-light  b1 btn-lg active" role="button" aria-pressed="true">Greek</a>
-                <a href="#" class="btn btn-light b1 btn-lg active" role="button" aria-pressed="true">
-                    Vegeterian
-                </a>
-                <a href="#" class="btn btn-light  b1 btn-lg active" role="button" aria-pressed="true">
-                    Breakfast
-                </a>
+                {% for mykey,myvalue in category %}
+                <a href="#" class="btn btn-light b1 btn-lg active" role="button" aria-pressed="true">{{myvalue}}</a>
+                {% endfor %}
             </div>
             </p>
         </div>

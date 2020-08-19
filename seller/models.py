@@ -1,15 +1,31 @@
 from django.db import models
 from user.models import *
 # Create your models here.
-
+Restaurant_category = (
+    (1, 'Fast Food'),
+    (2, 'Dessert'),
+    (3, 'Chinese'),
+    (4, 'Thai'),
+    (5, 'Indian'),
+    (6, 'Pakistani'),
+    (7, 'Continental')
+)
 class Restaurant(models.Model):
     name = models.CharField(max_length=100)
     address = models.CharField(max_length = 50)
     avg_rating = models.FloatField(default=0)
-    category = models.CharField(max_length=100, default='Fast food')
+    category = models.PositiveSmallIntegerField(choices = Restaurant_category)
     
     def __str__(self):
         return f"{self.name}, {self.address}, {self.avg_rating}, {self.category}"
+
+class Rate(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, primary_key=True)
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
+    rate = models.PositiveSmallIntegerField()
+
+    def __str(self):
+        return f"{self.rate}"
 
 class Seller(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, primary_key=True)

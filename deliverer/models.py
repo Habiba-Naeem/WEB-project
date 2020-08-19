@@ -1,5 +1,6 @@
 from django.db import models
 from user.models import *
+from cart.models import *
 
 # Create your models here.
 class Deliverer(models.Model):

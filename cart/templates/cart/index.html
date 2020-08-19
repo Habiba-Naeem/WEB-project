@@ -2,6 +2,13 @@
 {% load static %}
 {% block content %}
 {% csrf_token %}
+{% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-dark" role="alert">
+        <h1 class="display-4">{{message}}</h1>
+    </div>
+    {% endfor %}
+{% else %}
 <section class="cart">
     {% csrf_token %}
     <article class="cart">
@@ -68,5 +75,5 @@
         </form>
     </article>
 </section>
-
+{% endif %}
 {% endblock %}

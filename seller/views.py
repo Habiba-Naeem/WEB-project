@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.contrib import messages
 from user.models import User
 from .models import *
+from cart.models import *
 # Create your views here.
 
 def index(request): 
@@ -32,11 +33,13 @@ def login_user(request):
                     return  HttpResponseRedirect(reverse('seller_index'))
                 else:
                     messages.warning(request, "Please provide correct email and password.")
-                    return JsonResponse({"success": False})
+                    return render(request, 'seller/login.html')
             else:
-                return JsonResponse({"Register your self as a seller first":True})
+                messages.warning(request, "Please register your restaurant first")  
+                return render(request, 'seller/login.html')
         except User.DoesNotExist:
-            return JsonResponse({"Register your self as a seller first":True})
+            messages.warning(request, "Please register your restaurant first")
+            return render(request, 'seller/login.html')
     else:
         return render(request, 'seller/login.html')
 
@@ -64,7 +67,10 @@ def register(request):
             try:
                 if  User.objects.get(email=email):
                     messages.error(request, "Username or email already exists.")
-                    return JsonResponse({"Username or email already exists": True})
+                    context = {
+                        "category": Restaurant_category
+                    }
+                    return render(request, 'seller/signup.html', context)
             except User.DoesNotExist:
                 user = User.objects.create_user(user_type=2, email=email, first_name=first_name, last_name=last_name, password=password)
                 restaurant = Restaurant.objects.create(name=name, address=address, category=category)
@@ -77,10 +83,16 @@ def register(request):
                 return HttpResponseRedirect(reverse('login_seller'))
         else:
             messages.error(request, "Passwords do not match")
-            return  JsonResponse({"Passwords do not match": True})
+            context = {
+                "category": Restaurant_category
+            }
+            return render(request, 'seller/signup.html', context)
     else:
         if not request.user.is_authenticated:
-            return render(request, 'seller/signup.html')
+            context = {
+                "category": Restaurant_category
+            }
+            return render(request, 'seller/signup.html', context)
         else:
             return HttpResponseRedirect(reverse('seller_index'))
 
@@ -249,6 +261,15 @@ def deleteitem(request, dish_id):
 
     return HttpResponseRedirect(reverse("seller_index"))
 
+def display_orders(request):
+    orders = Order.objects.filter(order_items__product__dish__seller__user = request.user)
+    n =  orders.count()
+    n = int(n/3)
+    context = {
+        "orders": orders, 
+        "count": range(n)
+    }
+    return render(request, "seller/dashboard.html", context)
 
   
 

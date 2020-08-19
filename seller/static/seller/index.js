@@ -1,8 +1,6 @@
-document.addEventListener('DOMContentLoaded', () => {
-  
+document.addEventListener('DOMContentLoaded', () =>{
+    
 })
-//window.addEventListener('load', (event) => {
-
 window.onload = function () {
     getlist();
 }
@@ -23,30 +21,35 @@ function addlistmemeber(member) {
     console.log(member);
     const list = document.getElementById('dish-list');
     itemdiv = document.createElement('div');
-    item = document.createElement('a');
-    item.innerHTML = member["dish_id"] + ": " + member["dish_name"];
+    itemdiv.dataset.dish_id = member["dish_id"];
+    itemdiv.dataset.dish_name = member["dish_name"];
+    itemdiv.className = "shadow-lg p-3 mb-3 bg-white rounded m-4";
+    itemp = document.createElement('p');
+    item = document.createElement('b');
+    br = document.createElement('br');
+    button = document.createElement("button");
+    button.className = "rounded overall cartbtn border-0 float-right p-1 details_button";
+    button.innerHTML = "Edit details";
+    item.innerHTML =  member["dish_name"];
     item.className = "dish-list-item";
     item.href = "#";
+    itemdiv.append(button);
     itemdiv.append(item);
+    itemdiv.append(itemp);
     list.append(itemdiv);
 };
 
 document.addEventListener('click', event => {
-
+    console.log("buton clik")
     const element = event.target;
-    if (element.className === 'dish-list-item') {
+    console.log(element)
+    if (element.className === "rounded overall cartbtn border-0 float-right p-1 details_button") {
         //itemdiv = element.parentElement;
-        dish_name = element.innerHTML;
+        var itemdiv = element.parentElement;
+        console.log(itemdiv)
+        var dish_name = itemdiv.dataset.dish_name;
+        var dish_id = itemdiv.dataset.dish_id;
         console.log(dish_name);
-        count = 0;
-        for (i = 0; i <= dish_name.length; i++) {
-            if (dish_name.charAt(i) === ":") {
-                break;
-            }
-            count++;
-            console.log(count);
-        }
-        dish_id = dish_name.substring(0, count);
         console.log(dish_id);
         getItem( dish_name, dish_id);
     }

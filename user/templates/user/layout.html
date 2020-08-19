@@ -39,12 +39,13 @@
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Restaurants
                         </a>
+                        
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Option1</a>
-                            <a class="dropdown-item" href="#">Option2</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Option3</a>
+                            {% for restaurant in restaurants %}
+                            <a class="dropdown-item" href="{% url 'restaurant' restaurant.name%}">{{ restaurant.name }}</a>
+                            {% endfor %}
                         </div>
+                        
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'cart' %}">Cart</a>
@@ -52,6 +53,9 @@
                     {% if request.user.is_authenticated %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'user_index'%}">{{ name }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout_user'%}">Logout</a>
                         </li>
                     {% else %}
                         <li class="nav-item">

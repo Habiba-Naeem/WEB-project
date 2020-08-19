@@ -53,6 +53,14 @@
                 </article> <!-- card-body end .// -->
                 <div class="border-top card-body text-center">Have an account? <a href="login.html">Log In</a></div>
             </div> <!-- card.// -->
+            
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-danger" role="alert">
+                {{message}}
+            </div>
+            {% endfor%}
+        {% endif %}
         </div> <!-- col.//-->
 
     </div> <!-- row.//-->
@@ -61,30 +69,5 @@
     </div>
     <!--container end.//-->
 </section>
-<!--<section class="reg-log-sec">
-    <div class="register-login-div">
-        <h2>Register</h2>
-        <form method="post" action="{% url 'register_deliverer' %}">
-            
-            {% csrf_token %}
-        
-            <label>First name </label>
-            <input type="text" class="form-control" name="first-name" required placeholder="">
-            <label>Last name </label>
-            <input type="text" class="form-control" name="last-name" required placeholder="">                    
-            <label>Email</label>
-            <input type="email" name="email" required>
-            <label>Vehicle Number</label>
-            <input type="text" name="vehicle_number" required>
-            <label>Phone number</label>
-            <input type="text" name="phone_number" required>
-            <label>Password</label>
-            <input type="password" name="password" required>
-            <label>Confirm Password</label>
-            <input type="password" name="confirm_password" required>
-            <button type="submit" id="register-button">Register</button>
-        </form>
-    </div>
-</section>-->
 
 {% endblock %}

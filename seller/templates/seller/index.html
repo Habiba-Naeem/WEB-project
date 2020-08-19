@@ -1,12 +1,12 @@
 {% extends "seller/layout.html"%}
 {% load static %}
 {% block content %}
-
-<h1>{{ restaurant }}</h1>
-<h1>Welcome to your account <span id="seller-name">{{ name }}</span>!</h1>
-<a href="{% url 'additem' %}">Add dishes</a>
-
-<h2>Here are the items you've posted:</h2>
-<div id="dish-list"></div>
+    <h1 class="my-4" style="text-align: center; font-weight: bold;">Welcome to your account<span id="seller-name"> {{ seller_name }}!
+        </span></h1>            
+        <div class="jumbotron jumbotron-fluid m-5 " style="background-color: white;" id="dish-list">
+            <h2 class="mx-4" style="font-weight:bold;">Here are the items you've posted:</h2>    
+        </div>
+        <a href="{% url 'additem' %}" class="btn btn-primary btn-lg " role="button" aria-disabled="false">Add dishes</a>
+        <a href="{% url 'display_orders' %}" class="btn btn-primary btn-lg " role="button" aria-disabled="false">View orders</a>
 
 {% endblock %}

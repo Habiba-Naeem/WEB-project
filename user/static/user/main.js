@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             var dishdiv = cart.parentElement.parentElement;
             dishid = dishdiv.dataset.dishid;
-            restaurantid = dishdiv.dataset.restaurantid; 
+            var restaurantid = dishdiv.dataset.restaurant_nameid; 
             //the object item
             const item = {
                 "dishid": dishid,

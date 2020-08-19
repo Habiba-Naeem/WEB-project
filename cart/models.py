@@ -21,16 +21,18 @@ class Cart_Item(models.Model):
     product = models.ForeignKey(Product, on_delete = models.CASCADE)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     quantity = models.PositiveSmallIntegerField(default = 1)
+    total = models.DecimalField( max_digits = 20, decimal_places = 2 ,default=0)
     def __str__(self):
-        return f"{self.product}, {self.cart},{self.quantity}"
+        return f"{self.product}, {self.cart},{self.quantity}, {self.total}"
 
 class Order_Items(models.Model):
     product = models.ForeignKey(Product, on_delete = models.CASCADE, null = True, blank = True)
     quantity = models.PositiveSmallIntegerField(default = 1)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, null = True, blank = True)
+    total = models.DecimalField( max_digits = 20, decimal_places = 2 , default=0)
     
     def __str__(self):
-        return f"{self.product}, {self.quantity}, {self.cart}"
+        return f"{self.product}, {self.quantity}, {self.cart}, {self.total}"
 
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE)
@@ -42,3 +44,11 @@ class Order(models.Model):
 
     def __str__(self):
         return f"{self.order_items}, {self.total}"
+
+
+class Order_Status(models.Model):
+    order = models.ForeignKey(Order, on_delete = models.CASCADE)
+    status = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.order}, {self.status}"
