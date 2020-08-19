@@ -1,0 +1,45 @@
+{% extends "seller/layout.html"%}
+{% load static %}
+{% block content %}
+<h1 class="mt-5 pt-4" style=" font-weight:bold; text-align: center;">Dashboard</h1>
+<div class="alert alert-warning mt-5" role="alert">
+  Total Assigned Orders: <span class="float-right"><b>06</b></span>
+</div>
+<div class="alert alert-danger mt-3"  role="alert">
+  Total Delivered Orders: <span class="float-right"><b>03</b></span>
+</div>
+{% for order in orders %}
+<br>
+<br>
+<br>
+<div class="card-deck">
+  {% for c in count %}
+  <div class="card shadow-lg  rounded">
+
+    <div class="card-body ">
+      <h5 class="card-title">Delivery status</h5>
+      <br>
+      <span class=" mx-auto alert alert-danger py-2" role="alert"> Delivered</span></h5>
+      <br><br>
+      <p class="card-text">
+        <b>Order item:</b> {{ order.order_items.product.dish.name }}<br>
+        <b>Quantity:</b> {{ order.order_items.quantity }}<br>
+        <b>Order Id:</b> {{order.order_items.id }}<br>
+        <b>User name:</b> {{ order.user.first_name }} <br>
+        <b>Address:</b> {{ order.address }}<br>
+        <b>Phone number:</b> {{ order.phone_number }}<br>
+      </p>
+    </div>
+    <div class="card-footer">
+      <b>Bill Amount:</b> <span class="float-right"> Rs{{ order.order_items.total }}
+    </div>
+
+  </div>
+  {% endfor %}
+  <br>
+  <br>
+  <br>
+</div>
+{% endfor %}
+
+{% endblock %}
