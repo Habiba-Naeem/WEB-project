@@ -1,0 +1,19 @@
+{% extends "seller/layout.html"%}
+{% load static %}
+{% block content %}
+<h1>Dish no {{ dish_id }}: {{ name }} </h1>
+<p>Summary: {{ summary }}</p>
+<p>Nationality: {{ nationality }}</p>
+<p>No of serving: {{ no_of_serving }}</p>
+<p>Picture: {{ picture }}</p>
+<p>Category: {{ category }}</p>
+<p>Glutten Free: {{ glutten_free }}</p>
+<p>Customizable: {{ customizable }}</p>
+<p>Price: {{ price }}</p>
+<!--<img src="{% static 'seller/'%}{{ name }}.jpg" width="400" height="400">-->
+{% if dish.picture %}
+<img src="{{ dish.picture.url }}" width="240">
+{% endif %}
+<a href="{% url 'updateitem' dish_id=dish_id %}">Update</a>
+<a href="{% url 'deleteitem' dish_id=dish_id %}">Delete</a>
+{% endblock %}

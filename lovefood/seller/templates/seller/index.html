@@ -1,0 +1,12 @@
+{% extends "seller/layout.html"%}
+{% load static %}
+{% block content %}
+
+<h1>{{ restaurant }}</h1>
+<h1>Welcome to your account <span id="seller-name">{{ name }}</span>!</h1>
+<a href="{% url 'additem' %}">Add dishes</a>
+
+<h2>Here are the items you've posted:</h2>
+<div id="dish-list"></div>
+
+{% endblock %}
