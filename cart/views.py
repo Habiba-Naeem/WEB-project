@@ -14,6 +14,7 @@ def index(request):
         
             context = {
                 "restaurants": Restaurant.objects.all(),
+                
             }
             messages.warning(request, "Please login to view cart.", context)
             return render(request, "cart/index.html")
@@ -24,7 +25,7 @@ def index(request):
         try:
             orders = Order.objects.filter(user=request.user)
             context = {
-                "user": request.user,
+                "name": request.user.first_name,
                 "cart_items": Cart_Item.objects.filter(cart=cart),
                 "restaurants": Restaurant.objects.all(),
                 'payment_choices': payment_choice,
@@ -32,14 +33,14 @@ def index(request):
             }
         except Order.DoesNotExist:
             context = {
-                "user": request.user,
+                "name": request.user.first_name,
                 "cart_items": Cart_Item.objects.filter(cart=cart),
                 "restaurants": Restaurant.objects.all(),
                 'payment_choices': payment_choice
             }
     except Cart.DoesNotExist:
         context = {
-            "user": request.user,            
+            "name": request.user.first_name,            
             "restaurants": Restaurant.objects.all(),
             'payment_choices': payment_choice
         }

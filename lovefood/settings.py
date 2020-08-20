@@ -31,13 +31,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'user.apps.UserConfig',
-    'orders.apps.OrdersConfig',
+    'user.apps.UserConfig',    
     'cart.apps.CartConfig',
-    'recipes.apps.RecipesConfig',
-    'reviews.apps.ReviewsConfig',
     'seller.apps.SellerConfig',
-    'location.apps.LocationConfig',
     'deliverer.apps.DelivererConfig',
     'django.contrib.admin',
     'django.contrib.auth',

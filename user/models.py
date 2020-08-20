@@ -36,6 +36,7 @@ class UserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 class User(AbstractUser):
+    
     USER_TYPE_CHOICES = (
         (1, 'customer'),
         (2, 'seller'),

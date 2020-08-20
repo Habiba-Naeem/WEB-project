@@ -17,7 +17,8 @@ def index(request):
         }
         return render(request, 'user/index.html', context)
     context = {
-        "restaurants": Restaurant.objects.all()
+        "restaurants": Restaurant.objects.all(),
+        "category": Restaurant_category
     }
     return render(request, 'user/index.html', context)
 

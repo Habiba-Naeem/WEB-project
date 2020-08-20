@@ -183,16 +183,14 @@ def redirectitem(request, dish_id):
         if dish.customizable == True:
             customizableornot = "Yes"
         
-        
-        i = dish.category.get_category_display()
         context = {
             "dish_id": int(dish.id),
             "name" : str(dish.name), 
             "summary" : str(dish.summary), 
-            "nationality" : str(dish.nationality), 
+            "nationality" : str(dish.get_nationality_display()), 
             "no_of_serving" : dish.no_of_serving,
             "picture" : str(dish.picture), 
-            "dishcategory" : str(i) , 
+            "dish_category" : str(dish.get_category_display()) , 
             "glutten_free" : str(glutten_freeornot), 
             "customizable" : str(customizableornot),
             "price":float(dish.price),

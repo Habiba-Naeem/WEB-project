@@ -112,7 +112,7 @@
                 </div>
             </div>
         </div>
-        <!--<div class="container">
+        <div class="container">
             <h1 class="display-4">
                 <br>
                 <b>Need some more Options?</b>
@@ -121,11 +121,11 @@
             <p class="lead">
             <div class="btn-group" role="group" aria-label="buttons">
                 {% for mykey,myvalue in category %}
-                <a href="#" class="btn btn-light b1 btn-lg active" role="button" aria-pressed="true">{{myvalue}}</a>
+                <a href="{% url 'browseRestaurants' %}" class="btn btn-light b1 btn-lg active" role="button" aria-pressed="true">{{myvalue}}</a>
                 {% endfor %}
             </div>
             </p>
-        </div>-->
+        </div>
         
         <div class="container">
             <h1 class="display-4">

@@ -10,6 +10,7 @@
     <tbody>
         <tr>
             <th scope="row">Category: </th>
+            <td>{{dish_category}}</td>
             {% for myvalue in dishcategory %}
             <td>{{ myvalue.get_category_display }}</td>
             {% endfor %}
