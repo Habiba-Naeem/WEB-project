@@ -157,15 +157,3 @@ function display_items(dish_name, dish_id) {
     request.send();
     console.log("ok2")
 }
-/*
-          const request = new XMLHttpRequest();
-          request.open('POST', '/retrievemessages');
-          request.onload = () => {
-              const data = JSON.parse(request.responseText);
-              data.forEach(add_message);
-          };
-          const data = new FormData();
-          data.append('channel', channel)
-
-          request.send(data);
-*/

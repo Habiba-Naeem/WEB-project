@@ -171,8 +171,9 @@
               <b>User name:</b> {{ order.user.first_name }} <br>
               <b>Address:</b> {{ order.address }}<br>
               <b>Phone number:</b> {{ order.phone_number }}<br>
+              <b>Payment method:</b> {{ order.get_payment_display }}<br>
               <b>Deliverer: </b> {{ order.deliverer.user.first_name }}<br>              
-              <b>Deliverer: </b> {{ order.deliverer.phone_number }}<br>
+              <b>Deliverer phone number: </b> {{ order.deliverer.phone_number }}<br>
             </p>
           </div>
           <div class="card-footer">

@@ -2,10 +2,10 @@
 {% load static %}
 {% block content %}
       <div class="alert alert-warning" style="margin-top: 110px;" role="alert">
-        Total Delivered Orders: <span class="float-right"><b>{{delivered}}</b></span>
+        Total Delivered Orders: <span class="float-right"><b data-delivered="{{delivered}}" class="delivered">{{delivered}}</b></span>
       </div>
       <div class="alert alert-danger" style="margin-top: 20px;" role="alert">
-        Total Pending Orders: <span class="float-right"><b>{{pending}}</b></span>
+        Total Pending Orders: <span class="float-right"><b data-pending="{{pending}}" class="pending">{{pending}}</b></span>
       </div>
       
       <br>
@@ -44,6 +44,7 @@
                   <b>User name:</b> {{ order.user.first_name }} <br>
                   <b>Address:</b> {{ order.address }}<br>
                   <b>Phone number:</b> {{ order.phone_number }}<br>
+                  <b>Payment method:</b> {{ order.get_payment_display }}
                   
                 </p>
               </div>

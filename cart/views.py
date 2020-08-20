@@ -48,7 +48,7 @@ def index(request):
 
 def cart_item(request, item):
     if not request.user.is_authenticated:
-        return HttpResponseRedirect(reverse("cart"))
+        return JsonResponse({"success": False})
 
     stuff = json.loads(item)
     print(stuff)

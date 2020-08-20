@@ -18,6 +18,12 @@ document.addEventListener('DOMContentLoaded', () =>{
                         if (id === parseInt(parent.dataset.order)){
                             s.innerHTML = "Delivered"; 
                             s.className = " mx-auto alert alert-success py-2 ";
+                            var delivered = document.querySelector(".delivered");
+                            var pending = document.querySelector(".pending");
+                            delivered.textContent = parseInt(delivered.dataset.delivered) + 1;
+                            delivered.setAttribute("data-delivered", `${parseInt(delivered.dataset.delivered) + 1}`);
+                            pending.textContent = parseInt(pending.dataset.pending) - 1;
+                            pending.setAttribute("data-pending", `${parseInt(pending.dataset.pending) - 1}`)
                         }
                     })
                 }
