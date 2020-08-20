@@ -1,24 +1,42 @@
 {% extends "seller/layout.html"%}
 {% load static %}
 {% block content %}
-      <div class="alert alert-warning" style="margin-top: 110px;" role="alert">
-        Total Assigned Orders: <span class="float-right"><b>06</b></span>
-      </div>
-      <div class="alert alert-danger" style="margin-top: 20px;" role="alert">
-        Total Delivered Orders: <span class="float-right"><b>03</b></span>
-      </div>
-      {% for order in orders %}
-      <br>
-      <br>
-      <br>
-      <div class="card-deck">
-        {% for c in count %}
+
+<div class="alert alert-warning" style="margin-top: 110px;" role="alert">
+  Total Delivered Orders: <span class="float-right"><b>{{delivered}}</b></span>
+</div>
+<div class="alert alert-danger" style="margin-top: 20px;" role="alert">
+  Total Pending Orders: <span class="float-right"><b>{{pending}}</b></span>
+</div>
+  
+  <br>
+  <br>
+  <br>
+  <div class="card-deck">
+    {% for order in orders %}
+        {% if forloop.counter|divisibleby:4 %}
+        </div><br>
+        <br>
+        <br><div class="card-deck">
+        {% else %}
         <div class="card shadow-lg  rounded">
     
           <div class="card-body ">
             <h5 class="card-title">Delivery status</h5>
             <br>
-            <span class=" mx-auto alert alert-danger py-2" role="alert"> Delivered</span></h5>
+            {% if not order.status %}
+            <span class=" mx-auto alert alert-danger py-2 status" role="alert"> 
+              
+              Pending
+    
+            </span></h5>
+            {% else %}
+            <span class=" mx-auto alert alert-success py-2 status" role="alert"> 
+              
+              Delivered
+    
+            </span></h5>
+          {% endif %}
             <br><br>
             <p class="card-text"> 
               <b>Order item:</b> {{ order.order_items.product.dish.name }}<br>
@@ -27,18 +45,22 @@
               <b>User name:</b> {{ order.user.first_name }} <br>
               <b>Address:</b> {{ order.address }}<br>
               <b>Phone number:</b> {{ order.phone_number }}<br>
+              <b>Deliverer: </b> {{ order.deliverer.user.first_name }}<br>
             </p>
           </div>
           <div class="card-footer">
-            <b>Bill Amount:</b> <span class="float-right"> Rs{{ order.order_items.total }}
+            <b>Bill Amount:</b> <span class="float-right"> Rs {{ order.order_items.total }}
           </div>
           
         </div>
-        {% endfor %}
+        {% endif %}             
         <br>
-      <br>
-      <br>
-      </div>
-      {% endfor %}
+        <br>
+        <br>
+        
+        {% endfor %} 
+    
+      </div>  
       
 {% endblock %}
+

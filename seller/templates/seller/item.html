@@ -1,16 +1,58 @@
 {% extends "seller/layout.html"%}
 {% load static %}
 {% block content %}
-<h1>Dish no {{ dish_id }}: {{ name }} </h1>
-<p>Summary: {{ summary }}</p>
-<p>Nationality: {{ nationality }}</p>
-<p>No of serving: {{ no_of_serving }}</p>
-<p>Picture: {{ picture }}</p>
-<p>Category: {{ category }}</p>
-<p>Glutten Free: {{ glutten_free }}</p>
-<p>Customizable: {{ customizable }}</p>
-<p>Price: {{ price }}</p>
+<h1 class="mt-5 pt-4 pb-3" style=" font-weight:bold; text-align: center;">Dish no {{ dish_id }}: {{ name }} </h1>
+<table class="table table-bordered table-striped bg-light mb-4" style="color:rgb(143, 49, 49);">
+    <thead>
+        <th scope="col" style=" font-size:22px;" >Dish</th>
+        <th scope="col" style=" font-size:20px;">{{ name }}</th>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">Category: </th>
+            {% for myvalue in dishcategory %}
+            <td>{{ myvalue.get_category_display }}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <th scope="row">Nationality: </th>
+            <td>{{ nationality }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Picture:</th>
+            <td>{{ dish.picture }}</td>
+            {% if dish.picture %}
+            <img src="{{ dish.picture.url }}" width="240">
+            {% endif %}
+        </tr>
+        <tr>
+            <th scope="row">No of serving:</th>
+            <td> {{ no_of_serving }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Summary: </th>
+            <td>{{ summary }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Glutten Free:</th>
+            <td> {{ glutten_free }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Customizable: </th>
+            <td>{{ customizable }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Price: </th>
+            <td>Rs {{ price }}</td>
+        </tr>
+    </tbody>
+</table>
+<div class="text-center mb-5">
+    <a href="{% url 'updateitem' dish_id=dish_id %}" role="button" class="btn btn-dark justify-content-center btn-lg "
+        style="background-color: #722910;" aria-disabled="false">Update</a>
+    <a href="{% url 'deleteitem' dish_id=dish_id %}" role="button" class="btn btn-dark justify-content-center btn-lg "
+        style="background-color: #722910;" aria-disabled="false">Delete</a>
+</div>
 
-<a href="{% url 'updateitem' dish_id=dish_id %}">Update</a>
-<a href="{% url 'deleteitem' dish_id=dish_id %}">Delete</a>
+
 {% endblock %}

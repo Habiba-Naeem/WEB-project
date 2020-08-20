@@ -3,7 +3,7 @@ function count(){
     document.querySelectorAll("#cart-item-total").forEach( t =>{
         count = parseFloat(t.dataset.total) + count;
     })
-    document.querySelector("#total").textContent = "$" + count.toFixed(2);
+    document.querySelector("#total").textContent = "Rs" + count.toFixed(2);
     document.querySelector("#totalhidden").value = count.toFixed(2);
     return count.toFixed(2);    
 }
@@ -17,11 +17,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const quantity = row.querySelector("#quantity");
         var total = row.querySelector("#cart-item-total");
     
-        total.textContent = "$" +  (prices.dataset.price * parseInt(quantity.value)).toFixed(2);
+        total.textContent = "Rs" +  (prices.dataset.price * parseInt(quantity.value)).toFixed(2);
         total.setAttribute("data-total", `${(prices.dataset.price * parseInt(quantity.value)).toFixed(2)}`);
         
         quantity.addEventListener("change",()=>{
-            total.textContent = "$" +  (prices.dataset.price * parseInt(quantity.value)).toFixed(2);
+            total.textContent = "Rs" +  (prices.dataset.price * parseInt(quantity.value)).toFixed(2);
             total.setAttribute("data-total", `${(prices.dataset.price * parseInt(quantity.value)).toFixed(2)}`);
             count();
 
@@ -30,12 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             request.onload = () => {
                 const data = JSON.parse(request.responseText);
-                if( data.success ){
-                    alert("added");
-                }
-                else {
-                    console.log("unsuccessful")
-                }
             };
 
             request.send();
@@ -62,24 +56,4 @@ document.addEventListener('DOMContentLoaded', () => {
             
         })
     })
-/*
-    var submit_order = document.querySelector("#submit_order");
-
-    submit_order.addEventListener("click", ()=>{
-        
-        rows.forEach( row => {
-            const quantity = row.querySelector("#quantity");
-            row.append(row.id);
-            q.append(quantity.value);
-            
-        })
-        item = {
-            "rowid": row,
-            "quantity": q
-        }
-        console.log(item)
-        const convert = JSON.stringify(item);
-        //document.querySelector("#payment-form").action = `/cart/order/${convert}`;
-    })*/
-
 })

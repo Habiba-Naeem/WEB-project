@@ -1,12 +1,12 @@
 {% extends "user/layout.html"%}
 {% load static %}
 {% block content %}
+<section class="container-md overall">
     <br><br>
     <h1 class="dark-brown font-weight-bolder text-center">{{ restaurant_name.name }}</h1>
     <br>
    <img src="" class="FirstImage container-sm"  alt="Responsive image">
    <br><br>
-   <p class="card-text dark-brown"><b>Rs.20</b> Delivery Fee.<p class="text-muted float-right"><span class="fa fa-star"></span><b> 4.5</b>/5 (2k+)</p></p>
    <br>
    <br>
    <br>
@@ -15,7 +15,7 @@
        <p>
            <b> {{ dish.name }} </b> 
            <br> 
-           {{ dish.price }} 
+           Rs {{ dish.price }} 
            <button class="rounded overall cartbtn border-0 float-right dark-brown add-to-cart">Add to Cart</button> 
         </p>
    </div>
@@ -41,14 +41,13 @@
     
 
     <h2 class="font-weight-bold dark-brown">{{ restaurant_name.name }} Information:</h2>
-    <h4 class="text-light">{{ restaurant_name.category }}</h4>
     <h4 class="text-light">{{ restaurant_name.address }}</h4>
-</div>-->
+</div>
    
     <!--<br><br>
     <iframe class="rounded container-fluid" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14470.957748216468!2d67.0495118!3d24.9409449!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x2029dfc6f65c44b!2sBroadway%20Pizza%205%20Star!5e0!3m2!1sen!2s!4v1597068181247!5m2!1sen!2s"  frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
     <br>
     <script src="app.js"></script>-->
     
-    
+</section>    
 {% endblock %}

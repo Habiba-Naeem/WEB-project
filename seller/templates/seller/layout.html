@@ -33,7 +33,7 @@
           <ul class="navbar-nav float-right mr-auto">
             {% if request.user.is_authenticated %}
             <li class="nav-item active ">
-              <a class="nav-link text-light "href="{% url 'seller_index' %}">{{ request.user.first_name }}<span class="sr-only">(current)</span></a>
+              <a class="nav-link text-light pl-0" href="{% url 'seller_index' %}">{{ request.user.first_name }}<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link text-light " href="{% url 'additem' %}">Add dishes</a> <span class="sr-only">(current)</span></a>
@@ -62,4 +62,3 @@
     </body> 
 
 </html>
-

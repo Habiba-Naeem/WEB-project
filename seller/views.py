@@ -6,6 +6,7 @@ from django.contrib import messages
 from user.models import User
 from .models import *
 from cart.models import *
+from .forms import ImageForm
 # Create your views here.
 
 def index(request): 
@@ -99,7 +100,12 @@ def register(request):
 def additem(request):
     glutten_freeornot = False
     customizableornot = False 
-    
+    context={
+        "form" : ImageForm,
+        "nationality": Restaurant_category,
+        "dish_category": Dish_category
+    }
+
     if request.method == 'POST':
         dish_name = request.POST.get('dish_name')
         summary = request.POST.get('dish_summary')
@@ -117,19 +123,24 @@ def additem(request):
         if customizable == True:
             customizableornot = True
         
+        form = ImageForm(request.FILES)
+        
+        if form.is_valid():
+            picture = request.FILES.get('picture')
+            
         user = Seller.objects.get(user=request.user)
         restaurant = Seller.objects.get(user=user).restaurant
         print(restaurant)
 
-        Dish.objects.create(restaurant=restaurant, name= dish_name, summary=summary, nationality=nationality, category=category, no_of_serving=no_of_serving, picture=picture, glutten_free=glutten_freeornot, customizable=customizableornot, seller=user, price=price)
-    
+        currentDish = Dish.objects.create(restaurant=restaurant, name= dish_name, summary=summary, nationality=nationality, category=category, no_of_serving=no_of_serving, picture=picture, glutten_free=glutten_freeornot, customizable=customizableornot, seller=user, price=price)
         context = {
             "message" : "Item added!", 
         }
-        return HttpResponseRedirect(reverse("additem"))
+        dish_id = currentDish.id
+        return HttpResponseRedirect(reverse("redirectitem", args=(dish_id,)))
 
     else:
-        return render(request, 'seller/additem.html')
+        return render(request, 'seller/additem.html', context)
     
 def getlist(request):
     itemlist = []
@@ -171,7 +182,9 @@ def redirectitem(request, dish_id):
 
         if dish.customizable == True:
             customizableornot = "Yes"
-
+        
+        
+        i = dish.category.get_category_display()
         context = {
             "dish_id": int(dish.id),
             "name" : str(dish.name), 
@@ -179,10 +192,11 @@ def redirectitem(request, dish_id):
             "nationality" : str(dish.nationality), 
             "no_of_serving" : dish.no_of_serving,
             "picture" : str(dish.picture), 
-            "category" : str(dish.category) , 
+            "dishcategory" : str(i) , 
             "glutten_free" : str(glutten_freeornot), 
             "customizable" : str(customizableornot),
-            "price":float(dish.price)
+            "price":float(dish.price),
+            "dish": dish
         }
     return render(request, 'seller/item.html', context)
 
@@ -190,6 +204,7 @@ def updateitem(request, dish_id):
     seller = Seller.objects.get(user=request.user)
     dish = seller.cooks.get(pk=dish_id)
     
+    form = ImageForm
 
     if request.method == 'GET':    
         glutten_freeornot = "No"
@@ -204,6 +219,7 @@ def updateitem(request, dish_id):
         if dish.customizable == True:
             customizableornot = "Yes"
 
+        
         context = {
             "dish_id": int(dish.id),
             "name" : str(dish.name), 
@@ -213,7 +229,12 @@ def updateitem(request, dish_id):
             "picture" : str(dish.picture), 
             "category" : str(dish.category) , 
             "glutten_free" : str(glutten_freeornot), 
-            "customizable" : str(customizableornot)
+            "customizable" : str(customizableornot),
+            "dish" : dish,
+            "price":float(dish.price),
+            "form" : form,
+            "nationality": Restaurant_category,
+            "dish_category": Dish_category
         }
     return render(request, 'seller/updateitem.html', context)
 
@@ -226,7 +247,7 @@ def itemupdated(request, dish_id):
         summary = request.POST.get('dish_summary')
         nationality = request.POST.get('dish_nationality')
         no_of_serving = request.POST.get('dish_no_of_serving')
-        picture = request.POST.get('dish_picture')
+        #picture = request.POST.get('dish_picture')
         category = request.POST.get('dish_category')
         glutten_free = request.POST.get('dish_glutten_free')
         customizable = request.POST.get('dish_customizable')
@@ -236,7 +257,12 @@ def itemupdated(request, dish_id):
 
         if customizable == "Yes":
             customizableornot = True
-    
+
+        form = ImageForm(request.FILES)
+ 
+        if form.is_valid():
+            picture = request.FILES.get('picture')
+
         seller = Seller.objects.get(user=request.user)
         dish = seller.cooks.get(pk=dish_id)
         
@@ -249,8 +275,12 @@ def itemupdated(request, dish_id):
         dish.category =  category 
         dish.glutten_free = glutten_freeornot
         dish.customizable = customizableornot
+        dish.picture = picture
+
 
         dish.save()
+
+
 
     return HttpResponseRedirect(reverse("redirectitem", args=(dish_id,)))
 
@@ -263,15 +293,30 @@ def deleteitem(request, dish_id):
 
 def display_orders(request):
     orders = Order.objects.filter(order_items__product__dish__seller__user = request.user)
-    n =  orders.count()
-    n = int(n/3)
+    delivered = orders.filter(status=True).count()
+    pending = orders.filter(status=False).count()
     context = {
-        "orders": orders, 
-        "count": range(n)
+        "orders": orders,
+        "delivered": delivered, 
+        "pending": pending
     }
     return render(request, "seller/dashboard.html", context)
 
-  
+
+'''
+def image_upload_view(request):
+    """Process images uploaded by users"""
+    if request.method == 'POST':
+        form = ImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            # Get the current instance object to display in the template
+            img_obj = form.instance
+            return render(request, 'index.html', {'form': form, 'img_obj': img_obj})
+    else:
+        form = ImageForm()
+    return render(request, 'index.html', {'form': form})  
+'''                                                                                                                                                                                                                                                                       
 
 
 

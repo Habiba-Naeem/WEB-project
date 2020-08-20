@@ -11,9 +11,14 @@ from cart.models import *
 def index(request): 
     if request.user.is_authenticated:
         deliverer = Deliverer.objects.get(user=request.user)
+        orders = Order.objects.filter(deliverer=deliverer)
+        delivered = orders.filter(status=True).count()
+        pending = orders.filter(status=False).count()
         context = {
             "name": request.user.first_name,
-            "orders": Order.objects.filter(deliverer=deliverer)
+            "orders": orders,
+            "delivered": delivered, 
+            "pending": pending
         }
         return render(request, "deliverer/index.html", context)
     return HttpResponseRedirect(reverse('register_deliverer'))
@@ -80,7 +85,7 @@ def register(request):
 
 def confirm_delivery(request, id):
     order = Order.objects.get(id=id)
-    order_status = Order_Status.objects.create(order=order, status=True)
-
+    order.status = True
+    order.save()
     return JsonResponse({"success":True})
 

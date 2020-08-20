@@ -19,7 +19,7 @@
         <!--habiba-->
     </head>
     <body  class="body overall" id="top">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar container-fluid navbar-expand-lg navbar-light bg-dark" >
             <a class="navbar-brand"  style="font-size: 30px" href="{% url 'user_index'%}"><b>Love<label style="Color:rgb(207, 73, 73)">Food</label></b></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,49 +29,46 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="{% url 'user_index'%}">Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-link text-light" href="{% url 'user_index'%}">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">About us</a>
+                        <a class="nav-link text-light" href="#">About us</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        <a class="nav-link text-light dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Restaurants
                         </a>
                         
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             {% for restaurant in restaurants %}
-                            <a class="dropdown-item" href="{% url 'restaurant' restaurant.name%}">{{ restaurant.name }}</a>
+                            <a class=" dropdown-item" href="{% url 'restaurant' restaurant.name%}">{{ restaurant.name }}</a>
                             {% endfor %}
                         </div>
                         
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'cart' %}">Cart</a>
+                        <a class="nav-link text-light" href="{% url 'cart' %}">Cart</a>
                     </li>
                     {% if request.user.is_authenticated %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'user_index'%}">{{ name }}</a>
+                            <a class="nav-link text-light" href="{% url 'user_index'%}">{{ name }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'logout_user'%}">Logout</a>
+                            <a class="nav-link text-light" href="{% url 'logout_user'%}">Logout</a>
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'login_user'%}">Login</a>
+                            <a class="nav-link text-light" href="{% url 'login_user'%}">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'register_user'%}">Register</a>
+                            <a class="nav-link text-light" href="{% url 'register_user'%}">Register</a>
                         </li>
                     {% endif %}
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
             </div>
         </nav>
+        
         <!--habiba-->
         
         {% block content %}
