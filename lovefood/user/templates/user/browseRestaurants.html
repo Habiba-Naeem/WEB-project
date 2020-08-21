@@ -1,0 +1,21 @@
+{% extends "user/layout.html"%}
+{% load static %}
+
+{% block content %}
+<div class="container-md">
+  <div class="card-deck">
+    {% for restaurant in restaurants %}
+    <div class="card">
+      <!-- <a href="burger1.html"><img src="burger1.jpg "  class="card-img-top" alt="..."></a>-->
+      <img src="{{ restaurant.picture.url }}" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title ">{{ restaurant.name }}</h5>
+        <p class="card-text">Free Delivery.<small class="text-muted float-right"><span class="fa fa-star"></span><b>
+              4.1</b>/5 (1k+)</small></p>
+        <a href="{% url 'restaurant' restaurant.name %}">View menu</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

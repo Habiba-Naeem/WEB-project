@@ -1,0 +1,195 @@
+{% extends "user/layout.html"%}
+{% load static %}
+{% block content %}
+{% csrf_token %}
+<section class="cart">
+  {% csrf_token %}
+  <article class="cart">
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-warning" role="alert">
+       {{message}}
+    </div>
+    {% endfor %}
+    {% else %}
+      <div>
+          <br><br>
+          <h1 class="mx-auto font-weight-bolder" style="width: 250px;">Your cart</h1>
+          <br><br>
+      </div>
+      
+      <div class="contents mx-auto" style="width: 700px;">
+
+        <table id="table">
+            <thead>
+                <tr class="begin-row">
+                    <th class="h4 font-weight-bold mx-auto table-heading col" style="width: 150px;">Resturant</th>
+                    <th class="h4 font-weight-bold mx-auto table-heading col" style="width: 150px;">Dish</th>
+                    <th class="h4 font-weight-bold mx-auto table-heading col" style="width: 150px;">Quantity</th>
+                    <th class="h4 font-weight-bold mx-auto table-heading col" style="width: 150px;">Total</th>
+                    <th class="h4 font-weight-bold mx-auto table-heading col" style="width: 70px;" id="lasthead"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cart_item in cart_items %}
+                <tr class="row" id="{{ cart_item.id }}">
+                    <td class="mx-auto table-data table-name" style="width: 60px;" id="product-name">{{ cart_item.product.dish.restaurant.name }}
+                    </td>
+                    <td class="table-data table-name mx-auto " style="width: 60px;">{{cart_item.product.dish.name}}
+                        <div class="inside-row">
+                            <label id="product-price" data-price="{{ cart_item.product.dish.price }}">Rs {{ cart_item.product.dish.price }}</label>
+                            <br>
+                        </div>
+                    </td>
+                    <td class="mx-auto table-data" style="width: 125px;" id="cart-item-quantity">
+                        <div class="properties-div">
+                            <input type="number" id="quantity" name="quantity" min="1" max="50" value="1">
+                        </div>
+                    </td>
+                    <td class=" mx-auto table-data" style="width: 125px;" id="cart-item-total" data-=""></td>
+                    <td class="table-data"><button class="btn btn-secondary cancel">Cancel</button></td>
+                </tr>
+                {% endfor%}
+            </tbody>
+        </table>
+       
+    </div>
+      
+  </article>
+</section>
+<section class="checkout">
+  <article class="checkout">
+    <div>
+      <br><br>
+      <h1 class="mx-auto font-weight-bolder" style="width: 250px;">Checkout</h1>
+      <h3 class="dark-brown mx-auto font-weight-bolder" style="width: 550px;">Please confirm your following info:</h3>
+      <br><br>
+  </div>
+  
+  <div class="contents mx-auto" style="width: 670px;">
+
+    <form method="POST" name="myform" action="{% url 'order' %}" id="payment-form">
+        {% csrf_token %}
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Username</span>
+        </div>
+        <input type="text" class="form-control" name="username" required placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Email Address</span>
+        </div>
+        <input type="text" class="form-control" name="email" required  placeholder="xyz@gmail.com" aria-label="Username" aria-describedby="basic-addon1">
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Address</span>
+        </div>
+        <input type="text" name="address" id="order_address" required  class="form-control" placeholder="Address" aria-label="Username" aria-describedby="basic-addon1">
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Contact Number</span>
+        </div>
+        <input type="text" name="phone_number" id="order_phone_number" required  class="form-control" placeholder="03x-xxxxxxxx" aria-label="Username" aria-describedby="basic-addon1">
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Payment Method</span>
+        </div>
+        <select name="payment" class="custom-select form-control">
+          {% for mykey,myvalue in payment_choices%}
+          <option value="{{ mykey }}">{{myvalue}}</option>
+          {% endfor %}
+      </select>
+    </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Any note to Rider?</span>
+        </div>
+        <input type="text" class="form-control" name="note" placeholder="Give any note" aria-label="Username" aria-describedby="basic-addon1">
+      </div>
+      
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Total
+            <label name="total" id="total"></label></span>
+            
+            <input type="hidden" name="total" id="totalhidden">
+        </div>
+    </div>
+      <div class="mx-auto" style="width: 200px;">        
+        <input class="btn bg-light " type="submit" id="submit_order" value="Order all"></div>
+      </form>
+      </div>
+
+      <br>
+      <br>
+  </article>
+</section>
+<section class="order overall container-md">
+  <article class="order">
+    <div>
+      <br><br>
+      <h1 class="mx-auto font-weight-bolder" style="width: 250px;">Your orders</h1>
+      <br><br>
+  </div>
+    <br>
+  <br>
+  <br>
+  <div class="card-deck">
+    {% for order in orders %}
+        {% if forloop.counter|divisibleby:4 %}
+        </div><br>
+        <br>
+        <br><div class="card-deck">
+        {% else %}
+        <div class="card shadow-lg  rounded">
+    
+          <div class="card-body ">
+            <h5 class="card-title">Delivery status</h5>
+            <br>
+            {% if not order.status %}
+            <span class=" mx-auto alert alert-danger py-2 status" role="alert"> 
+              
+              Pending
+    
+            </span></h5>
+            {% else %}
+            <span class=" mx-auto alert alert-success py-2 status" role="alert"> 
+              
+              Delivered
+    
+            </span></h5>
+          {% endif %}
+            <br><br>
+            <p class="card-text"> 
+              <b>Order item:</b> {{ order.order_items.product.dish.name }}<br>
+              <b>Quantity:</b> {{ order.order_items.quantity }}<br>      
+              <b>Order Id:</b> {{order.order_items.id }}<br>
+              <b>User name:</b> {{ order.user.first_name }} <br>
+              <b>Address:</b> {{ order.address }}<br>
+              <b>Phone number:</b> {{ order.phone_number }}<br>
+              <b>Payment method:</b> {{ order.get_payment_display }}<br>
+              <b>Deliverer: </b> {{ order.deliverer.user.first_name }}<br>              
+              <b>Deliverer phone number: </b> {{ order.deliverer.phone_number }}<br>
+            </p>
+          </div>
+          <div class="card-footer">
+            <b>Bill Amount:</b> <span class="float-right"> Rs {{ order.order_items.total }}
+          </div>
+          
+        </div>
+        {% endif %}             
+        <br>
+        <br>
+        <br>
+        
+        {% endfor %} 
+    
+      </div>
+  </article>
+</section>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "user/layout.html"%}
+{% load static %}
+{% block content %}
+<section class="container-md overall">
+    <br><br>
+    <h1 class="dark-brown font-weight-bolder text-center">{{ restaurant_name.name }}</h1>
+    <br>
+    <img src="" class="FirstImage container-sm" alt="Responsive image">
+    <br><br>
+    <br>
+    <br>
+    <br>
+    {% for dish in dishes %}
+    <div class="shadow-lg p-3 mb-3 bg-white rounded dishdiv" data-dishid="{{ dish.id }}"
+        data-restaurant_nameid="{{ restaurant_name.id }}" width="5" height="5">
+        <p>
+            <img src="{{ dish.picture.url }}" width="30" height="30">
+            <b> {{ dish.name }} </b>
+            <br>
+            <small> <i>{{ dish.summary }}</i>
+                <br>
+                {{ dish.get_nationality_display}}
+                <br>
+                {{ dish.get_category_display }}
+            </small>
+            <br>
+            <b>Rs {{ dish.price }} </b>
+            <button class="rounded overall cartbtn border-0 float-right dark-brown add-to-cart">Add to Cart</button>
+        </p>
+    </div>
+    {% endfor %}
+
+
+    <h2 class="font-weight-bold dark-brown">{{ restaurant_name.name }} Information:</h2>
+    <h4 class="text-light">{{ restaurant_name.address }}</h4>
+    </div>
+</section>
+{% endblock %}
