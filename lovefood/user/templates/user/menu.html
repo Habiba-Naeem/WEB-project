@@ -5,16 +5,17 @@
     <br><br>
     <h1 class="dark-brown font-weight-bolder text-center">{{ restaurant_name.name }}</h1>
     <br>
-    <img src="" class="FirstImage container-sm" alt="Responsive image">
+    <img src="{{ restaurant_name.picture.url }}" alt="Responsive image" width=300 height="300">
     <br><br>
     <br>
     <br>
     <br>
     {% for dish in dishes %}
     <div class="shadow-lg p-3 mb-3 bg-white rounded dishdiv" data-dishid="{{ dish.id }}"
-        data-restaurant_nameid="{{ restaurant_name.id }}" width="5" height="5">
+        data-restaurant_nameid="{{ restaurant_name.id }}">
         <p>
-            <img src="{{ dish.picture.url }}" width="30" height="30">
+            <img src="{{ dish.picture.url }}" width="120" height="120">
+            </br>
             <b> {{ dish.name }} </b>
             <br>
             <small> <i>{{ dish.summary }}</i>
