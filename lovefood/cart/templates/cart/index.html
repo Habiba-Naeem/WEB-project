@@ -140,7 +140,12 @@
   <br>
   <div class="card-deck">
     {% for order in orders %}
-        <div class="card shadow-lg  rounded">
+        {% if forloop.counter|divisibleby:4 %}
+        </div><br>
+        <br>
+        <br>
+        <div class="card-deck">
+          <div class="card shadow-lg  rounded">
     
           <div class="card-body ">
             <h5 class="card-title">Delivery status</h5>
@@ -157,7 +162,7 @@
               Delivered
     
             </span></h5>
-          {% endif %}
+            {% endif %}
             <br><br>
             <p class="card-text"> 
               <b>Order item:</b> {{ order.order_items.product.dish.name }}<br>
@@ -175,32 +180,7 @@
             <b>Bill Amount:</b> <span class="float-right"> Rs {{ order.order_items.total }}
           </div>
           
-        </div>          
-        <br>
-        <br>
-        <br>
-        
-        {% endfor %} 
-    
-      </div>
-  </article>
-</section>
-<!--<section class="order overall container-md">
-  <article class="order">
-    <div>
-      <br><br>
-      <h1 class="mx-auto font-weight-bolder" style="width: 250px;">Your orders</h1>
-      <br><br>
-  </div>
-    <br>
-  <br>
-  <br>
-  <div class="card-deck">
-    {% for order in orders %}
-        {% if forloop.counter|divisibleby:4 %}
-        </div><br>
-        <br>
-        <br><div class="card-deck">
+        </div>
         {% else %}
         <div class="card shadow-lg  rounded">
     
@@ -219,7 +199,7 @@
               Delivered
     
             </span></h5>
-          {% endif %}
+            {% endif %}
             <br><br>
             <p class="card-text"> 
               <b>Order item:</b> {{ order.order_items.product.dish.name }}<br>
@@ -247,7 +227,7 @@
     
       </div>
   </article>
-</section>-->
+</section>
 
 {% endif %}
 {% endblock %}

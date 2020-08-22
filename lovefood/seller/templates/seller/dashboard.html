@@ -1,6 +1,7 @@
 {% extends "seller/layout.html"%}
 {% load static %}
 {% block content %}
+
 <div class="alert alert-warning" style="margin-top: 110px;" role="alert">
   Total Delivered Orders: <span class="float-right"><b>{{delivered}}</b></span>
 </div>
@@ -13,8 +14,10 @@
   <br>
   <div class="card-deck">
     {% for order in orders %}
-        
-        <div class="card shadow-lg  rounded">
+        {% if forloop.counter|divisibleby:4 %}
+        </div><br>
+        <br>
+        <br><div class="card-deck"><div class="card shadow-lg  rounded">
     
           <div class="card-body ">
             <h5 class="card-title">Delivery status</h5>
@@ -48,31 +51,7 @@
             <b>Bill Amount:</b> <span class="float-right"> Rs {{ order.order_items.total }}
           </div>
           
-        </div>            
-        <br>
-        <br>
-        <br>
-        
-        {% endfor %} 
-    
-      </div>  
-      
-<!--<div class="alert alert-warning" style="margin-top: 110px;" role="alert">
-  Total Delivered Orders: <span class="float-right"><b>{{delivered}}</b></span>
-</div>
-<div class="alert alert-danger" style="margin-top: 20px;" role="alert">
-  Total Pending Orders: <span class="float-right"><b>{{pending}}</b></span>
-</div>
-  
-  <br>
-  <br>
-  <br>
-  <div class="card-deck">
-    {% for order in orders %}
-        {% if forloop.counter|divisibleby:4 %}
-        </div><br>
-        <br>
-        <br><div class="card-deck">
+        </div>
         {% else %}
         <div class="card shadow-lg  rounded">
     
@@ -117,7 +96,7 @@
         {% endfor %} 
     
       </div>  
-      -->
+      
 
 {% endblock %}
 
